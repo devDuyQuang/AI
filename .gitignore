@@ -1,0 +1,12 @@
+node_modules
+dist
+.DS_Store
+
+*.tsbuildinfo
+
+node_modules
+dist
+.env
+.env.*
+.DS_Store
+*.backup-*
