@@ -19,7 +19,8 @@ import { initialSession } from "../data/demoData";
 import { keys, readBookings, readSession, save } from "../lib/storage";
 import { respond } from "../lib/mockAi";
 import { canSpeak, speak } from "../lib/speech";
-import { recognitionLocale, type DemoLanguage } from "../lib/language";
+// Đã xóa bỏ recognitionLocale ở dòng dưới để hết lỗi TS6133
+import { type DemoLanguage } from "../lib/language"; 
 import { useVoiceInput } from "../hooks/useVoiceInput";
 import type { Session } from "../types/demo";
 import { MicrophoneOrb } from "./MicrophoneOrb";
@@ -51,10 +52,10 @@ export function AiReceptionistDemo() {
   
   const voiceInput = useVoiceInput(
     send,
-    busy,
-    recognitionLocale(inputLanguage, session.language),
+    busy
   );
 
+  // Đã dọn dẹp, chỉ giữ lại duy nhất 1 block useEffect cho inputLanguage
   useEffect(() => {
     if (!save(keys.inputLanguage, inputLanguage)) setStorageWarning(true);
   }, [inputLanguage]);
@@ -146,7 +147,7 @@ export function AiReceptionistDemo() {
         alignItems: 'center',
         justifyContent: 'center',
         gap: '8px',
-        flexWrap: 'wrap' /* Giúp tự động xuống dòng mượt mà trên điện thoại */
+        flexWrap: 'wrap'
       }}>
         <span style={{
           backgroundColor: 'rgba(245, 158, 11, 0.15)',
@@ -185,7 +186,6 @@ export function AiReceptionistDemo() {
               <AudioLines size={22} />
             </div>
             <div>
-              {/* HUY HIỆU LIVE ACTIVE GIỮ NGUYÊN KIỂU SANG TRỌNG HOẶC ĐỔI TIÊU ĐỀ PHỤ */}
               <h2>
                 KhaiFrost AI Receptionist{" "}
                 <span className="online-badge">
@@ -300,4 +300,3 @@ export function AiReceptionistDemo() {
     </>
   );
 }
-
